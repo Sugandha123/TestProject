@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { indexStore } from './store/indexStore';
 import AutoCompleteDropDown  from './component/autoCompleteDropDown';
 
-
 function App() {
     const store = indexStore();
     return (
