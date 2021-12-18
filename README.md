@@ -9,6 +9,7 @@ You will also see any lint errors in the console.
 Runs the app in the development mode.<br />
 Open [http://localhost:3030](http://localhost:3030) to view it in the browser.
 
-for run the application hit the two command:
+for run the application hit the three command:
+-npm install
 -npm start
 -node server
