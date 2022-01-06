@@ -24,7 +24,7 @@ type:'GET'
 
  Response:get a token
 
- ## For Search Address
+ ## For Search Address (serach something unit)
  Request:
  url:'https://devcore02.cimet.io/v1/search-address'
  type:'POST'
