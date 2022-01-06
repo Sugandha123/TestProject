@@ -5,7 +5,7 @@ import { GET_SEARCH_ADDRESS, GET_TOKEN } from '../constants/actionTypes';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-
+import SpinnerCustom  from './SpinnerCustom';
 
 import '../index.css';
 const AutoCompleteDropDown = (props) => {
@@ -16,6 +16,7 @@ const AutoCompleteDropDown = (props) => {
     const dispatch = useDispatch();
     const appState = useSelector((state) => state);
     const [value, setValue] = useState();
+    const [isloader, setLoader] = useState(false);
 
     const useStyles = makeStyles({
         paper: {
@@ -40,7 +41,7 @@ const AutoCompleteDropDown = (props) => {
         }
         else
             if (appState.loginDataValue.getToken.errorMessage !== null) {
-                const message=appState.loginDataValue.getSearchAddress.getToken.message;
+                const message = appState.loginDataValue.getSearchAddress.getToken.message;
                 setSearchText(message);
                 setSearchAddressList([]);
             }
@@ -50,13 +51,13 @@ const AutoCompleteDropDown = (props) => {
     useEffect(() => {
         if (appState.loginDataValue.getSearchAddress.respMessage !== null) {
             const list = appState.loginDataValue.getSearchAddress.respMessage.data;
-            const message=appState.loginDataValue.getSearchAddress.respMessage.message;
+            const message = appState.loginDataValue.getSearchAddress.respMessage.message;
             setSearchText(message);
             setSearchAddressList(list);
         }
         else
             if (appState.loginDataValue.getSearchAddress.errorMessage !== null) {
-                const message=appState.loginDataValue.getSearchAddress.errorMessage.message;
+                const message = appState.loginDataValue.getSearchAddress.errorMessage.message;
                 setSearchText(message);
                 setSearchAddressList([]);
             }
@@ -74,6 +75,7 @@ const AutoCompleteDropDown = (props) => {
     return (
         <Fragment>
             <div className='mainContainer'>
+                <SpinnerCustom isLoader={isloader}></SpinnerCustom>
                 <label>{text}</label>
                 <div className='containerDiv'>
                     <input onChange={event => setSearchData(event.target.value)} className="inputStyle"
@@ -95,7 +97,7 @@ const AutoCompleteDropDown = (props) => {
 
                 <label className='messageLabel'>{searchText}</label>
             </div>
-           
+
         </Fragment>
     )
 }

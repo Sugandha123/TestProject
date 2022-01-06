@@ -23,3 +23,78 @@
     color: red;
     font-weight: bold;
 }
+
+/* Spinner start */
+.spinner_Wrapper{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: RGBA(0,0,0,0.39);
+    z-index: 9999999;
+    top: 0;
+    left: 0;
+}
+#spinner{
+    z-index: 999999999;   
+    color: #fff!important;
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+}
+.test_loader{
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.test_loader div{
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0,1,1,0);
+}
+.test_loader div:nth-child(1){
+    left: 8px;
+    animation:test_loader1 0.6s infinite;
+}
+.test_loader div:nth-child(2){
+    left: 8px;
+    animation:test_loader2 0.6s infinite;
+}
+.test_loader div:nth-child(3){
+    left: 56px;
+    animation:test_loader2 0.6s infinite;
+}
+.test_loader div:nth-child(4){
+    left: 56px;
+    animation:test_loader3 0.6s infinite;
+}
+
+@keyframes test_loader1{
+    0%{
+        transform:scale(0);
+    }
+    100%{
+        transform:scale(1);
+    }
+}
+@keyframes test_loader2{
+    0%{
+        transform:translate(0,0);
+    }
+    100%{
+        transform:translate(24px,0);
+    }
+}
+@keyframes test_loader3{
+    0%{
+        transform:scale(1);
+    }
+    100%{
+        transform:scale(0);
+    }
+}
+
+/* SPinner Ends */
