@@ -6,8 +6,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import SpinnerCustom  from './SpinnerCustom';
-
 import '../index.css';
+
 const AutoCompleteDropDown = (props) => {
     const text = "Please Search Address in the Input Box";
     const [searchData, setSearchData] = useState();
