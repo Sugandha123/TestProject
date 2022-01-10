@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'auto'
     },
     checkedIcon: {
-        'input:disabled~&': {
+        'input:disabled ~ &': {
             background: '#007481'
         }
     },
@@ -176,7 +176,7 @@ export default function CheckBoxList(props) {
     return (
         <Grid container spacing={2} justify='flex-start' alignItems='centre' className={classes.root}>
             <Grid item disabled={true} className='left'>
-            {customList(props.checkBoxListHeader,left)}
+                {customList(props.checkBoxListHeader, left)}
             </Grid>
         </Grid>
     );

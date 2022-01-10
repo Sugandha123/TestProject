@@ -3,7 +3,7 @@ import {Switch} from 'react-router-dom';
 import Route from 'react-router-hooks';
 import HomePage from './component/homePage';
 import AutoCompleteDropDown from './component/autoCompleteDropDown';
-import TransferList from './component/transferList';
+import TransferList from './component/TransferList';
 
 const Routes=()=>{
     return(
