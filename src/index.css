@@ -98,3 +98,17 @@
 }
 
 /* SPinner Ends */
+
+.pageContainer{
+    width: 98%;
+    padding: 10px 1vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: calc(100vh - 85px);
+    max-height: calc(100vh - 85px);
+}
+
+.cardHome{
+    padding-right: 0!important;
+    padding-left:6% !important;
+}
