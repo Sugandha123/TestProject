@@ -1,0 +1,24 @@
+.searchTextDiv{
+    text-align: left;
+    position: relative;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.searchTextDiv input[type=text]{
+    width:40%;
+    height: 42px;
+    border-radius: 6px;
+    border:1px solid #007481;
+    padding-left: 30px;
+    margin-right: 25px;
+    margin-top:0px!important;
+    margin-bottom:0px!important ;
+}
+
+.searchTextDiv .fa-search{
+    position:absolute;
+    left:10px;
+    top:14px;
+    color:#0c5460;
+}

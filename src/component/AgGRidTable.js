@@ -119,7 +119,8 @@ const AgGridTable = (props) => {
 
             </div>
 
-            <div className="ag-theme-fresh AGG_table" style={{ width: "100%", height="47vh" }}>
+            <div className="ag-theme-fresh AGG_table" style={{ width: "100%", height:"47vh" }}>
+                
                 <AgGridReact
                     rowData={props.rowData}
                     columnDefs={colDefn}
