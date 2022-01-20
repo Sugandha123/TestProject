@@ -111,11 +111,11 @@ const AgGridTable = (props) => {
                 <i className="fa fa-search"></i>
                 <input type="text" name="name" placeholder="Search...." onChange={filterTableData}></input>
                 {createButtonFlag === true &&
-                    <button className="Delete boldFont btn btn-primary" onClick={createHandler}>
+                    <button className="" onClick={() => { console.log("button clicked");}}>
                         <i className="fa fa-plus-circle"></i>Create</button>}
-                {props.showDownload === true &&
+             
                     <button className="boldFont btn btn-primary export" onClick={exportHandler}>
-                        <i className="fa fa-download"></i></button>}
+                        <i className="fa fa-download"></i>Export</button>
 
             </div>
 

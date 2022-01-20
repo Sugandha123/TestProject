@@ -20,6 +20,12 @@ const HomePage = () => {
                     <Link to='/registrationForm'>Registration Form</Link>
                 </div>
 
+                <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+                    <Link to='/agGrid'>AG GRID Table</Link>
+                </div>
+
+                
+
             </div>
         </div>
 

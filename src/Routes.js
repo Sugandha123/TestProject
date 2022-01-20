@@ -5,6 +5,7 @@ import HomePage from './component/homePage';
 import AutoCompleteDropDown from './component/autoCompleteDropDown';
 import TransferList from './component/TransferList';
 import RegistratioForm from './component/RegistrationForm';
+import AgGrid from './component/AgGrid';
 
 const Routes=()=>{
     return(
@@ -13,6 +14,7 @@ const Routes=()=>{
             <Route exact path="/searchAddress" component={AutoCompleteDropDown}></Route>
             <Route exact path="/transferList" component={TransferList}></Route>
             <Route exact path="/registrationForm" component={RegistratioForm}></Route>
+            <Route exact path="/agGrid" component={AgGrid}></Route>
         </Switch>
     );
 };
