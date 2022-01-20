@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AgGridTable from './AgGRidTable';
 import SpinnerCustom from './SpinnerCustom';
 
 const RegistratioForm = () => {
@@ -17,17 +16,11 @@ const RegistratioForm = () => {
         setSelectedRows(selectedRows);
     }
 
-
-
     return (
         <div className='pageContainer container_wrapper'>
             <SpinnerCustom isLoader={isLoader}></SpinnerCustom>
 
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <AgGridTable rowData={rowData} colDefn={colDefn} getSelectedRows={getSelectedRows}
-                    createRoute={'/transferList'} buttonLabel="Create">
-
-                </AgGridTable>
 
             </div>
 

@@ -4,6 +4,7 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import 'ag-grid-community/dist/styles/ag-theme-fresh.css';
 import './AgGridTable.css';
+import ModalCustom from './ModalCustom';
 
 const AgGrid = () => {
 
@@ -63,6 +64,11 @@ const AgGrid = () => {
     const groupHeaderHeight = 75;
     const headerHeight = 40;
 
+    const [modalShow, setModalShow] = useState(false);
+    const [modalHeader, setModalHeader] = useState("");
+    const [modalBtn, setModalBtn] = useState("");
+    const [modalCloseBtn, setModalCloseBtn] = useState("");
+    const [modalBody, setModalBody] = useState("");
 
 
     useEffect(() => {
@@ -93,6 +99,11 @@ const AgGrid = () => {
         setGridColumnApi(params.columnApi);
     };
 
+    const confirmDelete = () => {
+        setModalShow(false);
+        console.log("Modal Close");
+    }
+
     const filterTableData = (e) => {
         gridAPI.setQuickFilter(e.target.value);
     }
@@ -107,6 +118,13 @@ const AgGrid = () => {
         console.log('Rows Selected', selectedRows);
     }
 
+    const deleteHandler = () => {
+        setModalShow(true);
+        setModalHeader('Error');
+        setModalBody('Body');
+        setModalBtn('Yes');
+        setModalCloseBtn('No');
+    }
     return (
         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
@@ -118,9 +136,12 @@ const AgGrid = () => {
 
             <button className="boldFont btn btn-primary export" onClick={exportHandler}>
                 <i className="fa fa-download"></i>Export</button>
-          
-            <button className="btn btn-primary export" 
-            onClick={onButtonClick}>Get selected rows</button>
+
+            <button className="btn btn-primary export"
+                onClick={onButtonClick}>Get selected rows</button>
+
+            <button className="btn btn-primary export"
+                onClick={deleteHandler}>Show Modal</button>
             <br />
             <br />
             <div className="ag-theme-fresh AGG_table" style={{ width: "100%", height: "47vh" }}>
@@ -161,6 +182,19 @@ const AgGrid = () => {
                 />
             </div>
 
+            <ModalCustom
+                show={modalShow}
+                size="md"
+                modalHeader={modalHeader}
+                modalBody={modalBody}
+                modalConfirmBtn={modalBtn}
+                modalCloseBtn={modalCloseBtn}
+                onClickNoButton={() => setModalShow(false)}
+                onClickConfirm={confirmDelete}
+                onHide={() => setModalShow(false)}
+            >
+
+            </ModalCustom>
         </div>
     );
 };
