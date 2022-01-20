@@ -164,4 +164,20 @@
 }
 /*Scrollbar Ends*/
 
+.fa{
+    margin:0 2px;
+}
+
+/* Button Style Starts */
+button{
+    margin: 5px !important;
+}
+
+button:hover,
+.btn-primary:focus{
+    background-color: #00c5d9 !important;
+    border-color: #00c5d9 !important;
+    box-shadow: 0 0 0 0.2rem transparent !important;
+}
+
 

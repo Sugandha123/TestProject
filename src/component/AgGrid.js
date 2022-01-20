@@ -2,12 +2,10 @@ import React, { Component, useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
+import 'ag-grid-community/dist/styles/ag-theme-fresh.css';
+import './AgGridTable.css';
 
 const AgGrid = () => {
-
-    const avatarFormatter = ({ value }) => {
-        return <img src={value} width="50px" height="50px" />;
-      };
 
     const columnDefination = [
         {
@@ -65,7 +63,7 @@ const AgGrid = () => {
     const groupHeaderHeight = 75;
     const headerHeight = 40;
 
-   
+
 
     useEffect(() => {
         setColumnDefs(columnDefs);
@@ -110,60 +108,59 @@ const AgGrid = () => {
     }
 
     return (
-        <div
-            className="ag-theme-balham"
-            style={{
-                height: "500px",
-                width: "600px"
-            }}
-        >
+        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-            <input type="text" name="name" placeholder="Search......" onChange={filterTableData}>
-            </input>
-            <br />
-            <br />
+            <div className="searchTextDiv">
+                <i className="fa fa-search"></i>
+                <input type="text" name="name" placeholder="Search......" onChange={filterTableData}>
+                </input>
+            </div>
+
             <button className="boldFont btn btn-primary export" onClick={exportHandler}>
                 <i className="fa fa-download"></i>Export</button>
+          
+            <button className="btn btn-primary export" 
+            onClick={onButtonClick}>Get selected rows</button>
             <br />
             <br />
-            <button onClick={onButtonClick}>Get selected rows</button>
-            <br />
-            <br />
-            <AgGridReact
-                columnDefs={columnDefs}
-                rowData={rowData}
-                pagination={true}
-                colResizeDefault={true}
-                rowSelection="multiple"
-                rowMultiSelectWithClick={true}
-                onGridReady={onGridReady}
-                onSelectionChanged={onSelectionChanged}
-                rowHeight={rowHeight}
-                groupHeaderHeight={groupHeaderHeight}
-                headerHeight={headerHeight}
-                groupSelectsChildren={true}
-                autoGroupColumnDef={autoGroupColumnDef}
-                overlayNoRowsTemplate={'<span style="padding:10px;border:1px solid #856404;background:#fff3cd;color:#856404;border-radius:.25rem">No Data Found</span>'}
-                overlayLoadingTemplate={
-                    '<span className="ag-overlay-loading-centre" style="padding:10px;border:1px solid #856404;background:#fff3cd;color:#856404;border-radius:.25rem">Please Wait While Your Data Are Loading</span>'
-                }
+            <div className="ag-theme-fresh AGG_table" style={{ width: "100%", height: "47vh" }}>
+                <AgGridReact
+                    columnDefs={columnDefs}
+                    rowData={rowData}
+                    pagination={true}
+                    colResizeDefault={true}
+                    rowSelection="multiple"
+                    rowMultiSelectWithClick={true}
+                    onGridReady={onGridReady}
+                    onSelectionChanged={onSelectionChanged}
+                    rowHeight={rowHeight}
+                    groupHeaderHeight={groupHeaderHeight}
+                    headerHeight={headerHeight}
+                    groupSelectsChildren={true}
+                    autoGroupColumnDef={autoGroupColumnDef}
+                    overlayNoRowsTemplate={'<span style="padding:10px;border:1px solid #856404;background:#fff3cd;color:#856404;border-radius:.25rem">No Data Found</span>'}
+                    overlayLoadingTemplate={
+                        '<span className="ag-overlay-loading-centre" style="padding:10px;border:1px solid #856404;background:#fff3cd;color:#856404;border-radius:.25rem">Please Wait While Your Data Are Loading</span>'
+                    }
 
-                //paginationAutoPageSize={true}
+                    //paginationAutoPageSize={true}
 
-                defaultColDef={{
-                    sortable: true,
-                    filter: true,
-                    flex: 1,
-                    minWidth: 50,
-                    sortingOrder: ['asc', 'desc', null],
-                    wrapText: true,
-                    autoHeight: true,
-                    resizable: true,
-                    // align:left,
-                    // floatingFilter:true
+                    defaultColDef={{
+                        sortable: true,
+                        filter: true,
+                        flex: 1,
+                        minWidth: 50,
+                        sortingOrder: ['asc', 'desc', null],
+                        wrapText: true,
+                        autoHeight: true,
+                        resizable: true,
+                        // align:left,
+                        // floatingFilter:true
 
-                }}
-            />
+                    }}
+                />
+            </div>
+
         </div>
     );
 };
