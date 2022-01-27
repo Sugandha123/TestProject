@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FromControlLabel from '@material-ui/core/FormControlLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import './RadioButtonList.css'
 
@@ -60,9 +60,9 @@ function StyledRadio(props) {
             disableRipple
             color="default"
             checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)}></span>}
-            icon={<span className={classes.icon}></span>}>
+            icon={<span className={classes.icon}></span>}
             {...props}
-        </Radio>
+        />
     );
 }
 
@@ -78,7 +78,7 @@ export default function RadioButtonList(props) {
         <FormControlLabel
             key={options.value}
             value={options.value}
-            control={<StyledRadio></StyledRadio>}
+            control={<StyledRadio />}
             label={options.label}
             disabled={props.disabled}
             onClick={() => handleToggle(options)}>
