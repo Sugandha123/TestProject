@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SpinnerCustom from './SpinnerCustom';
 import * as Yup from 'yup';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik';
 import RadioButtonList from './RadioButtonList';
 import CheckBoxList from './CheckBoxList';
 
@@ -10,7 +10,8 @@ const RegistratioForm = (props) => {
         firstName: '',
         lastName: '',
         gender: '',
-        qualification:''
+        qualification: '',
+        address:[]
     };
 
     const genderList = [
@@ -47,7 +48,7 @@ const RegistratioForm = (props) => {
         firstName: Yup.string().required('First name is Required'),
         lastName: Yup.string().required('Last name is Required'),
         gender: Yup.string().required('Gender is Required'),
-        qualification:Yup.string().required('Qualification is Required'),
+        qualification: Yup.string().required('Qualification is Required'),
     });
 
     const genderSelectHandler = (childData) => {
@@ -58,7 +59,7 @@ const RegistratioForm = (props) => {
         console.log('Qualification selected', childData);
     };
 
-    
+
     const onSubmit = () => {
         console.log('Inside Submit');
     };
@@ -133,18 +134,18 @@ const RegistratioForm = (props) => {
                             </div>
 
                             <div className='rowDiv'>
-                                <div className='form-group'>
+                                <div className='form-group row'>
                                     <label htmlFor='qualification' className='formLabel form-Label'>Qualification</label>
                                     <CheckBoxList
-                                    checkBoxListValue={qualificationList}
-                                    parentCallback={qualificationHandler}
-                                    checkBoxListHeader='Select'
-                                    setFieldValue={setFieldValue}
-                                    fieldValueName='qualification'
-                                    className='left'
-                                    defaultChecked={[]}
-                                    disabled={props?.viewOnly}
-                                    height='20rem'
+                                        checkBoxListValue={qualificationList}
+                                        parentCallback={qualificationHandler}
+                                        checkBoxListHeader='Select'
+                                        setFieldValue={setFieldValue}
+                                        fieldValueName='qualification'
+                                        className='left'
+                                        defaultChecked={[]}
+                                        disabled={props?.viewOnly}
+                                        height='20rem'
                                     />
                                 </div>
                                 <div className='row errorContainer'>
@@ -158,6 +159,50 @@ const RegistratioForm = (props) => {
                                 </div>
                             </div>
 
+                            <div className='rowDiv'>
+                                <div className='form-group row'>
+                                    <label htmlFor='address' className='formLabel form-Label'>Address</label>
+
+                                    <FieldArray name='address'>
+                                        {
+                                            (fieldArrayProps) => {
+                                                const { push, remove, form } = fieldArrayProps;
+                                                const { values } = form;
+                                                const { address } = values;
+                                                return <div className="addressLeg">
+                                                    {
+                                                        address.length !== 0 &&
+                                                        address.map((closeDate, index) => (
+                                                            <div key={index} className='formWrapper_zone'>
+                                                                {
+                                                                    index > 0 &&
+                                                                    <label className='formLabel form-label'>
+                                                                    </label>
+                                                                }
+                                                                <Field type='text' name={`address[${index}]`}></Field>
+
+                                                                <button type='button' className='left btn btn-danger'
+                                                                    onClick={() => {
+                                                                        remove(index, '');
+                                                                    }}>
+                                                                    <i className="fa fa-minus"></i>
+                                                                </button>
+                                                            </div>
+                                                        ))
+                                                    }
+
+                                                    <button className='left btn btn-primary' type='button'
+                                                    onClick={()=>{
+                                                        push('');
+                                                    }}>
+                                                        <i className='fa fa-plus'></i>
+                                                    </button>
+                                                </div>;
+                                            }
+                                        }
+                                    </FieldArray>
+                                </div>
+                            </div>
                             <div>
                                 <button type='button' className='btn btn-primary'>
                                     <i className='fa fa-chevron-left'></i>

@@ -148,7 +148,7 @@
 /*Scrollbar Starts*/
 /* width */
 ::-webkit-scrollbar{
-    width:6px
+    width:10px
 }
 /* Track */
 ::-webkit-scrollbar-track{
@@ -156,7 +156,7 @@
 }
 /* Handle */
 ::-webkit-scrollbar-thumb{
-    background: #666;
+    background:blue;
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover{
