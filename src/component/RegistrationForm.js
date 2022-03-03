@@ -1,17 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import SpinnerCustom from './SpinnerCustom';
 import * as Yup from 'yup';
 import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik';
 import RadioButtonList from './RadioButtonList';
 import CheckBoxList from './CheckBoxList';
+import AutoCompleteDropDown from './autoCompleteDropDown';
+import forge from 'node-forge';
+import { CSVLink } from 'react-csv';
+import UploadCsv from './UploadCsv';
 
 const RegistratioForm = (props) => {
+    const [nationalitySelected, setNationalitySelected] = useState();
+    const [isLoader, setLoader] = useState(false);
+    const[parcelArr,setParcelArr] = useState([]);
+    const csvLinkE1 = useRef();
+    const sampleData = [
+        {
+            Parcel: 'ASDG123456'
+        },
+        {
+            Parcel: 'ASDG123457'
+        },
+        {
+            Parcel: 'ASDG123458'
+        }
+    ];
     const initialValues = {
         firstName: '',
         lastName: '',
         gender: '',
         qualification: '',
-        address:[]
+        address: [],
+        nationality: ''
     };
 
     const genderList = [
@@ -44,11 +64,23 @@ const RegistratioForm = (props) => {
         }
     ];
 
+    const nationalityList = [
+        {
+            value: 'Indian',
+            label: 'Indian'
+        },
+        {
+            value: 'Other',
+            label: 'Other'
+        }
+    ];
+
     const initialValidationSchema = Yup.object({
         firstName: Yup.string().required('First name is Required'),
         lastName: Yup.string().required('Last name is Required'),
         gender: Yup.string().required('Gender is Required'),
         qualification: Yup.string().required('Qualification is Required'),
+        nationality: Yup.string().required('Nationality is Required')
     });
 
     const genderSelectHandler = (childData) => {
@@ -59,12 +91,73 @@ const RegistratioForm = (props) => {
         console.log('Qualification selected', childData);
     };
 
+    const nationalityHandler = (childData) => {
+        setNationalitySelected(childData);
+    };
+
+    const showEncrypt = () => {
+        var md = forge.md.sha512.create();
+        md.update('Sugandha');
+        var pass = md.digest().toHex();
+        console.log(pass);
+    };
+
+    const bulkUpload = (event) => {
+        if (event.target.files === undefined) {
+            setLoader(false);
+            document.body.onfocus = null;
+            return;
+        }
+        setLoader(true);
+        var reader = new FileReader();
+        var data = [];
+        reader.onload = function () {
+            data = reader.result.split('\n');
+            var header = data[0].replace(/\s+/g, "");
+            var index = -1;
+            if (header === 'Parcel' || header === '"Parcel"') {
+                index = 0;
+            }
+            if (data.length <= 1 || index === -1) {
+                setLoader(false);
+                console.log('Error is there while uploading');
+            }
+            else {
+                var paarcelData = [];
+                for (let i = 1; i < data.length - 1; i++) {
+                    paarcelData.push(data[i].split(',')[index]);
+                }
+                for (let i = 0; i < paarcelData.length; i++) {
+                    paarcelData[i] = paarcelData[i].replace(/\s/g, '').trim();
+                }
+                console.log('parcel data',parcelArr);
+                setParcelArr(paarcelData);
+            }
+        };
+        if (event.target.files[0] !== undefined) {
+            setLoader(false);
+            document.body.focus = null;
+            return;
+        }
+        reader.readAsText(event.target.files[0]);
+    };
+
+    const loaderHandler = (childData) => {
+        if (childData !== undefined && childData !== null) {
+            setLoader(childData);
+        }
+    };
+
+    const downloadCsv = () => {
+        console.log(`user clicked sample download button`);
+        csvLinkE1.current.link.click();
+    };
 
     const onSubmit = () => {
         console.log('Inside Submit');
     };
 
-    const [isLoader] = useState(false);
+
 
     return (
         <div className='pageContainer container_wrapper'>
@@ -192,9 +285,9 @@ const RegistratioForm = (props) => {
                                                     }
 
                                                     <button className='left btn btn-primary' type='button'
-                                                    onClick={()=>{
-                                                        push('');
-                                                    }}>
+                                                        onClick={() => {
+                                                            push('');
+                                                        }}>
                                                         <i className='fa fa-plus'></i>
                                                     </button>
                                                 </div>;
@@ -203,7 +296,63 @@ const RegistratioForm = (props) => {
                                     </FieldArray>
                                 </div>
                             </div>
+
+                            <div className='rowDiv'>
+                                <div className='form-group'>
+                                    <label htmlFor='nationality' className='formLabel form-Label'>Nationality</label>
+                                    <AutoCompleteDropDown
+                                        dropDownValue={nationalityList}
+                                        parentCallBackOnChangehandler={e => nationalityHandler(e)}
+                                        setFieldValue={setFieldValue}
+                                        disabled={props?.viewOnly}
+                                        defaultValue={nationalitySelected?.value}
+                                        defaultLabel={nationalitySelected?.label}
+                                        fieldName='nationality'
+                                        label='Please Select Nationality'
+                                        showLabelAndValue={true}>
+                                    </AutoCompleteDropDown>
+
+                                    <Field as="select"
+                                        name="nationality"
+                                        onBlur={nationalityHandler}
+                                        disabled={props?.viewOnly}>
+                                        {nationalityList.map((option, index) => (
+                                            <option key={index} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </Field>
+                                </div>
+                                <div className='row errorContainer'>
+                                    <div className='errorSpaceDiv'>
+                                    </div>
+                                    <div className='errorDiv'>
+                                        <small className='red left boldFont'>
+                                            <ErrorMessage name='nationality' />
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className='rowDiv'>
+                                <UploadCsv onChange={bulkUpload} loader={loaderHandler} buttonLabel='Bulk Upload'></UploadCsv>
+                                <a className='sampleDownload' onClick={downloadCsv}>Click here to down sample file</a>
+                                <CSVLink
+                                    data={sampleData}
+                                    fileName='smaple_file.csv'
+                                    className='hidden'
+                                    ref={csvLinkE1}
+                                    target='_blank'
+                                >
+
+                                </CSVLink>
+                            </div>
+
                             <div>
+
+                                <button className="btn btn-primary export" type='button'
+                                    onClick={showEncrypt}>Show Encrypted Value</button>
+
                                 <button type='button' className='btn btn-primary'>
                                     <i className='fa fa-chevron-left'></i>
                                     Back
